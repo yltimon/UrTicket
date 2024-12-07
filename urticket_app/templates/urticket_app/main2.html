@@ -1,0 +1,55 @@
+{% load static tailwind_tags %}
+
+<html lang="en">
+<head>
+    {% tailwind_css %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizer</title>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="bg-white shadow">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="{% url 'orgdash' %}" class="text-xl font-bold text-blue-600">DASHBOARD</a>
+            <ul class="hidden md:flex space-x-6 text-gray-700">
+                <li><a href="{% url 'orgdash' %}" class="hover:text-blue-600">Home</a></li>
+                <li><a href="{% url 'orgdash' %}" class="hover:text-blue-600">Events</a></li>
+                <li><a href="{% url 'ticketsbought' organizer.id %}" class="hover:text-blue-600">Ticket</a></li>
+                <li><a href="{% url 'addevent' %}" class="hover:text-blue-600">Add Event</a></li>
+            </ul>
+            {% if organizer %}
+            <form action="{% url 'logout' %}" method="post" class="inline">
+                {% csrf_token %}
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                    Sign Out
+                </button>
+            </form>
+             {% else %}
+            <button id="auth-button" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+               <a href="{% url 'login' %}">Login</a> 
+            </button>
+            <button id="auth-button" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                <a href="{% url 'signup' %}">Sign Up</a>
+            </button>
+            {% endif %}
+        </div>
+    </nav>
+
+    <hr>
+
+    {% block content %}
+    
+    
+    {% endblock %}
+
+    <hr>
+
+    <footer id="contact" class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto px-4 text-center">
+            <p>© 2024 UR TICKET. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

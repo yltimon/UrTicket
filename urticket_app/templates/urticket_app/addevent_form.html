@@ -1,0 +1,29 @@
+{% extends 'urticket_app/main2.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 min-h-full">
+    <h1 class="text-3xl text-center font-bold mb-6">New Events</h1>
+    <div class="flex flex-col justify-between lg:flex-row gap-6">
+    <!-- Events Form -->
+        <div class="bg-white shadow-md rounded-lg p-6 w-full lg:w-1/2">
+            <h2 class="text-xl font-semibold mb-4 text-gray-800">Add New Event</h2>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form}}
+                <button type="submit" name="event_submit"
+                    class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 mt-4">Add Event</button>
+            </form>
+            
+        </div>
+        <div class="bg-white shadow-md rounded-lg p-6 w-full lg:w-1/2" >
+            <h2 class="text-xl font-semibold mb-4 text-gray-800">Add Each Ticket Type</h2>
+            <form method="POST">
+                {% csrf_token %}
+                {{ticket}}
+                <button type="submit" name="ticket_submit"
+                    class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 mt-4">Add Ticket</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

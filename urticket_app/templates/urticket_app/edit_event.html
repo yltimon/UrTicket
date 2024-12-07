@@ -1,0 +1,12 @@
+{% extends 'urticket_app/main2.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 min-h-full">
+    <h2 class="text-2xl font-bold">Edit Event</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="bg-blue-600 mt-4 mx-auto text-white px-4 py-2 rounded hover:bg-blue-700">Update Event</button>
+    </form>
+</div>
+{% endblock %}

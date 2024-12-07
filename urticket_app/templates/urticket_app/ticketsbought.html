@@ -1,0 +1,51 @@
+{% extends 'urticket_app/main2.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 min-h-screen">
+    <h2 class="text-3xl text-center font-bold mb-6">Tickets Purchased for Your Events</h2>
+
+    {% for event, items in grouped_tickets.items %}
+    <!-- Event Section -->
+    <div class="mb-8">
+        <h3 class="text-2xl text-blue-800 text-center font-semibold mb-4">{{ event.title }}</h3>
+
+        <!-- Tickets Table -->
+        <div class="bg-white shadow-md rounded overflow-x-auto w-full">
+            <table class="min-w-full text-left text-sm">
+                <thead>
+                    <tr class="bg-gray-200 text-gray-600 uppercase text-xs font-semibold">
+                        <th class="py-3 px-6">Name</th>
+                        <th class="py-3 px-6">Phone</th>
+                        <th class="py-3 px-6">Ticket Type</th>
+                        <th class="py-3 px-6">Quantity</th>
+                        <th class="py-3 px-6">Purchased On</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr class="border-b hover:bg-gray-100">
+                        <td class="py-3 px-6">{{ item.order.member.fname }} {{ item.order.member.lname }}</td>
+                        <td class="py-3 px-6">{{ item.order.member.phone }}</td>
+                        <td class="py-3 px-6">{{ item.ticket.name }}</td>
+                        <td class="py-3 px-6">{{ item.quantity }}</td>
+                        <td class="py-3 px-6">{{ item.order.created_at }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center py-4 text-gray-500">
+                            No tickets have been purchased for this event yet.{{ items.quantity }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% empty %}
+    <div class="text-center text-gray-500">
+        <p>No tickets have been purchased for any of your events yet.</p>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

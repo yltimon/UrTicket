@@ -1,0 +1,23 @@
+{% extends 'urticket_app/main2.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 min-h-full">
+    <h2 class="text-2xl font-bold">Manage Tickets for Event: {{ event.title }}</h2>
+
+    <form method="post" action="{% url 'edit_ticket' event.id %}">
+        {% csrf_token %}
+        {{ ticket_formset.management_form }}
+        {% for form in ticket_formset %}
+            <div class="ticket-form border p-4 rounded mb-4">
+                {{ form.as_p }}
+                {% if form.instance.pk %}
+                    <p><strong>Existing Ticket:</strong> {{ form.instance.name }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+            Save Tickets
+        </button>
+    </form>
+</div>
+{% endblock %}
